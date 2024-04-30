@@ -27,7 +27,7 @@ In our implementation, the RAG pipeline is based on a [Streamlit](https://stream
 
 In the Streamlit application, we use [LangChain](https://www.langchain.com/) to perform semantic search on Amazon OpenSearch serving as our vector store for embedded paragraphs to ensure reduced latency for document retrieval, and interfaces with the fine-tuned LLM hosted on AWS SageMaker. For more details please refer to this [python script](Streamlit/chain.py).  
 
-One key feature of this framework is to enable the collection of users' feedback for future improvement. To achieve this, we developed a feedback collection module in the UI. This UI allows the users to mark the question’s severity level (minor, major), score the bot response (in 5 levels: strongly disagree, disagree, neutral, agree, strongly agree), and provide the correct answer or any other comment. DynamoDB tables are utilized to store session information and user feedbacks. For more details please refer to this [python script](Streamlit/Assistant - Feedback.py).  
+One key feature of this framework is to enable the collection of users' feedback for future improvement. To achieve this, we developed a feedback collection module in the UI. This UI allows the users to mark the question’s severity level (minor, major), score the bot response (in 5 levels: strongly disagree, disagree, neutral, agree, strongly agree), and provide the correct answer or any other comment. DynamoDB tables are utilized to store session information and user feedbacks. For more details please refer to this [python script](Streamlit/Assistant_Feedback.py).  
 
 ![alt_txt](assets/QA_Bot_feedback_UI.png)
         
@@ -44,8 +44,6 @@ You can deploy the fine-tuned model to SageMaker endpoint for future inference. 
 To take advantage of both the RAG framework and the fine-tuned LLM, and also to reduce the hallucination, we first semantically validate the incoming question. If the question is among the training data for the fine-tuning (the fine-tuned model already has the knowledge to provide a high-quality answer), then we direct the question as a prompt to inference the fine-tuned model. Otherwise, the question goes through LangChain and gets the response from RAG. The following diagram illustrates this workflow.
 
 ![alt_txt](assets/GESS_RAG_prompt_validation.png)
-
-Please refer to this [python script]() for the RAG pipeline with fine-tuned LLM. 
 
 ## Contribute
 If you would like to contribute to the project, see [CONTRIBUTING](CONTRIBUTING.md) for more information.
